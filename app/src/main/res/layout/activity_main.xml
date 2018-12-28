@@ -1,13 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="cic.du.ac.in.all_about_fragments.MainActivity">
 
+    <Button
+        android:id="@+id/getStarted"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Get Started -->"
+        android:background="@drawable/gradient"
+        android:layout_gravity="center"
+        android:padding="12dp"
+        android:fontFamily="@font/aclonica"
+        android:textSize="18sp"
+        android:height="10dp"/>
     <FrameLayout
         android:id="@+id/fragmentContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="5dp"/>
-</LinearLayout>
+</FrameLayout>
