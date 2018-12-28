@@ -19,16 +19,19 @@ public class MainActivity extends AppCompatActivity implements FragmentActionLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        getSupportActionBar().setTitle("Fragments");
         button  = findViewById(R.id.getStarted);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addFragment();
-            }
-        });
+        if(savedInstanceState==null){
+            button.setVisibility(View.VISIBLE);
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    addFragment();
+                }
+            });
+        }
 
         fragmentManager = getSupportFragmentManager();
-        getSupportActionBar().setTitle("Fragments");
     }
 
     private void addFragment(){

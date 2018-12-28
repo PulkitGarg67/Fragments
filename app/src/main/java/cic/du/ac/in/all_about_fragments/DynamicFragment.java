@@ -66,4 +66,12 @@ public class DynamicFragment extends Fragment {
         });
 
     }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if(savedInstanceState!=null){
+            fragmentActionListener = (MainActivity)getActivity();
+        }
+    }
 }
