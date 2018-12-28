@@ -10,7 +10,10 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements FragmentActionListener {
 
+    FragmentManager fragmentManager;
     Button button;
+    private FragmentTransaction fragmentTransaction;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,31 +27,37 @@ public class MainActivity extends AppCompatActivity implements FragmentActionLis
             }
         });
 
+        fragmentManager = getSupportFragmentManager();
         getSupportActionBar().setTitle("Fragments");
     }
 
     private void addFragment(){
         button = findViewById(R.id.getStarted);
         button.setVisibility(View.INVISIBLE);
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction = fragmentManager.beginTransaction();
 
         DynamicFragment dynamicFragment = new DynamicFragment();
-        dynamicFragment.setFragmentActionListener(this);
+        dynamicFragment.setFragmentActionListener(this  );
         fragmentTransaction.add(R.id.fragmentContainer,dynamicFragment);
-        fragmentTransaction.addToBackStack("Counries_Fragment");
         fragmentTransaction.commit();
     }
-
     @Override
-    public void onBackPressed() {
-        button = findViewById(R.id.getStarted);
-        button.setVisibility(View.VISIBLE);
-        super.onBackPressed();
+    public void onCountrySelected(Bundle bundle) {
+        int action = bundle.getInt(FragmentActionListener.ACTION_KEY);
+        switch (action){
+            case FragmentActionListener.ACTION_VALUE_COUNTRY_SELECTED : addCountryDescription(bundle);
+                break;
+        }
     }
 
-    @Override
-    public void onCountrySelected(String country) {
-        Toast.makeText(this, "Country Selected - "+ country, Toast.LENGTH_SHORT).show();
+    private void addCountryDescription(Bundle bundle) {
+        fragmentTransaction = fragmentManager.beginTransaction();
+
+        DescriptionFragment descriptionFragment = new DescriptionFragment();
+        descriptionFragment.setArguments(bundle);
+
+        fragmentTransaction.replace(R.id.fragmentContainer,descriptionFragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 }
